@@ -1,0 +1,37 @@
+﻿
+
+<div ng-controller="orderListCtrl">
+<div class="content">
+    <div class="container" style="background-color: white ; margin-top:60px; padding-left:60px">
+        <div class="content-top-bottom" style="margin-top:60px">
+            <h2>Order List</h2>
+            <div style="margin-left:50px" class="row" ng-repeat="x in oLData.orderList">
+                <h4><b>Order ID: {{x.orderID}} </b></h4>
+                <br />
+                <div class="span5" style="margin-left:50px" ng-controller="navbarCtrl">
+                    <h5> Customer Details </h5>
+                    <b>Name - </b><h6 ng-click="viewAnyUserP(x.userID)"><a href="">{{x.name}} </a></h6> <br />
+                    <b>Address - </b>{{x.address}}<br />
+                    <b>Contact # - </b>{{x.contact}}  <br />
+                </div>
+                <div class="span5" ng-controller="specificStoreCtrl">
+                    <h5> Order Details </h5>
+                    <b>Product Name - </b><h6 ng-click="toSpecificProduct(x.productID , x.productName)"><a href="">{{x.productName}} </a></h6> <br />
+                    <b>Price - </b>{{x.price}}<br />
+                    <b>Order Date - </b>{{x.orderDate}}  <br />
+                </div>
+                <div class="span2">
+                    <br />
+                    <a href="" ng-if="x.status=='pending'" ng-click="acceptReq(x.orderID)" class="add-cart item_add">Accept Order</a>
+                    <a href="" ng-if="x.status=='undelivered'" ng-click="orderDelivered(x.orderID)" class="add-cart item_add">Delivered</a>
+                    <br />
+                    <a href="" ng-if="x.status=='pending'" ng-click="cancelOrder(x.orderID)" class="add-cart item_add">Cancel Order</a>
+                    <h4 ng-if="x.status=='order canceled by customer'"  ><b>{{x.status}}</b></h4>
+                    <br /> <i ng-if="x.status=='order canceled by customer' || x.status=='order canceled by merchant'" class="icon-cut"> </i>
+                </div>
+                <div class="clearfix"> </div> <br /> <br />
+                </div>
+            </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,411 @@
+﻿
+<div ng-controller="profileCtrl">
+
+<div class="container" style="background-color:white; margin-top:60px; padding-top:50px; padding-left:30px;padding-right:40px">
+    
+    <div class="product">
+        <div class="row">
+            <div class="span3">
+                <div class=" rsidebar span_1_of_left">
+                    <div class="of-left">
+                        <h3 class="cate">My Profile</h3>
+                    </div>
+                    <ul class="menu">
+                        <li class="item1">
+                            <a href="" ng-if="pUM==2" data-toggle="modal" data-target="#myModalCreateStore">Create Store </a>
+                        </li>
+                        <li class="item2">
+                            <h5 style="color:black" ng-click="viewShopCart(profileData.userId)"><a style="color:black" href="">View Shopping Cart</a></h5>
+                        </li>
+                        <li class="item2">
+                            <h5 ng-if="pUM==2" style="color:black" ng-click="viewOrderList(profileData.userId)"><a style="color:black" href="">View Order List</a></h5>
+                        </li>
+                        
+                        <li class="item4">
+                            <a href="">Stores Reviewed</a>
+                            <ul class="cute" ng-controller="specificMarketCtrl">
+                                <li class="subitem1">
+                                    <table style="margin:5%">
+                                        <tr ng-repeat="x in profileData.userPro.reviewsStore">
+                                            <td class="span4"><h5 ng-click="toSpecificStore(x.storeID , x.storeName)"><a style="color:black" href=""> {{x.storeName}}</a></h5> </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="item4">
+                            <a href="#">Store Tags Reviewed</a>
+                            <ul class="cute" ng-controller="storeTagCtrl">
+                                <li class="subitem1">
+                                    <table style="margin:5%">
+                                        <tr ng-repeat="x in profileData.userPro.reviewTag">
+                                            <td class="span4"><h5 ng-click="toSpecificTag(x.tagID, x.tagName, '', '')"><a style="color:black" href=""> {{x.tagName}}</a></h5> </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="item4">
+                            <a href="#">Store Tags Created</a>
+                            <ul class="cute" ng-controller="storeTagCtrl">
+                                <li class="subitem1">
+                                    <table style="margin:5%">
+                                        <tr ng-repeat="x in profileData.userPro.tagCreated">
+                                            <td class="span4"><h5 ng-click="toSpecificTag(x.tagID, x.storeName, x.storeAddress, x.city)"><a style="color:black" href=""> {{x.storeName}}</a></h5> </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="item4">
+                            <a href="#">My Stores</a>
+                            <ul class="cute" ng-controller="specificMarketCtrl">
+                                <li class="subitem1">
+                                    <table style="margin:5%">
+                                        <tr ng-repeat="x in profileData.userPro.storeCreated">
+                                            <td class="span4"><h5 ng-click="toSpecificStore(x.storeID , x.storeName)"><a style="color:black" href=""> {{x.storeName}}</a></h5> </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                $(function () {
+                    var menu_ul = $('.menu > li > ul'),
+                           menu_a = $('.menu > li > a');
+                    menu_ul.hide();
+                    menu_a.click(function (e) {
+                        e.preventDefault();
+                        if (!$(this).hasClass('active')) {
+                            menu_a.removeClass('active');
+                            menu_ul.filter(':visible').slideUp('normal');
+                            $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                        } else {
+                            $(this).removeClass('active');
+                            $(this).next().stop(true, true).slideUp('normal');
+                        }
+                    });
+
+                });
+            </script>
+
+            <div class="span4">
+
+                <div>
+                    <img src="{{imgSrc3}}" height="700" width="275" />
+                </div>
+            </div>
+
+
+            <div class="span4">
+                <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                    <div class="single-para ">
+                        <h4>{{profileData.userPro.firstname}} {{profileData.userPro.lastName}}</h4>
+                        <div class="star-on">
+                            <div>
+                                <a href="#"> {{profileData.userPro.email}} </a>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+
+                        <p>
+                            <br /> <br />
+                        </p>
+                        <p>
+                            <div ng-controller="fileUploadCtrl">
+                                Change Profile Pic:
+                                <input type="file" ng-model="$file" ngf-select="uploadFiles($file)" accept="image/*" ngf-max-height="1000" ngf-max-size="100MB" />
+                            </div>
+                        </p>
+                        <a href="#" class="add-cart item_add" data-toggle="modal" data-target="#myModal">EDIT PROFILE</a>
+
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br /> 
+
+
+    <div>
+        <a href="#" style="margin-left: 50px" ng-click="x1=0" class="add-cart item_add">Store Reviews</a>
+        <a href="#" ng-click="x1=1" class="add-cart item_add">Product Reviews</a>
+        <a href="#" ng-click="x1=2" class="add-cart item_add">Store Tag Reviews</a>
+    <div ng-if="x1==0" class="row" ng-repeat="x in profileData.userPro.reviewsStore" style="background-color: white; padding-top: 40px; margin-left: 50px; margin-right:50px">
+        <div class="span1">
+            <img ng-src={{imgSrc3}} class="img-responsive" alt="">
+        </div>
+        <div class="span7" ng-controller="specificMarketCtrl">
+            <h6 ng-click="toSpecificStore(x.storeID , x.storeName)">You wrote to <a href="">{{x.storeName}}</a> - {{x.date}}</h6>
+            <ul>
+            <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                <div ng-switch="x.rating >= Star" style="display:inline">
+                    <div ng-switch-when="true" style="display:inline">
+                        <i class="star icon-star" style="display:inline"> </i>
+                    </div>
+                    <div ng-switch-when="false" style="display:inline">
+                        <i class="star icon-star-empty" style="display:inline"> </i>
+                    </div>
+                </div>
+              </li>
+            </ul>
+
+            <p>{{x.review}}</p>
+            <br />
+        </div>
+        <div class="span3"> </div>
+        <div class="clearfix"> </div>
+    </div>
+
+        <div ng-if="x1==1" class="row" ng-repeat="x in profileData.userPro.reviewsProd" style="background-color: white; padding-top: 40px; margin-left: 50px; margin-right:50px">
+            <div class="span1">
+                <img ng-src={{imgSrc3}} class="img-responsive" alt="">
+            </div>
+            <div class="span7" ng-controller="specificStoreCtrl">
+                <h6 ng-click="toSpecificProduct(x.productID , x.productName)">You wrote to <a href="">{{x.productName}}</a> - {{x.date}}</h6>
+                <ul>
+                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                        <div ng-switch="x.rating >= Star" style="display:inline">
+                            <div ng-switch-when="true" style="display:inline">
+                                <i class="star icon-star" style="display:inline"> </i>
+                            </div>
+                            <div ng-switch-when="false" style="display:inline">
+                                <i class="star icon-star-empty" style="display:inline"> </i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <p>{{x.review}}</p>
+                <br />
+            </div>
+            <div class="span3"> </div>
+            <div class="clearfix"> </div>
+        </div>
+
+
+        <div ng-if="x1==2" class="row" ng-repeat="x in profileData.userPro.reviewTag" style="background-color: white; padding-top: 40px; margin-left: 50px; margin-right:50px">
+            <div class="span1">
+                <img ng-src={{imgSrc3}} class="img-responsive" alt="">
+            </div>
+            <div class="span7" ng-controller="storeTagCtrl">
+                <h6 ng-click="tagClicked(x.tagID, x.tagName, '', '')">You wrote to <a href="">{{x.tagName}}</a> - {{x.date}}</h6>
+                <ul>
+                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                        <div ng-switch="x.rating >= Star" style="display:inline">
+                            <div ng-switch-when="true" style="display:inline">
+                                <i class="star icon-star" style="display:inline"> </i>
+                            </div>
+                            <div ng-switch-when="false" style="display:inline">
+                                <i class="star icon-star-empty" style="display:inline"> </i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <p>{{x.review}}</p>
+                <br />
+            </div>
+            <div class="span3"> </div>
+            <div class="clearfix"> </div>
+        </div>
+        </div>
+    
+
+    
+    
+    <div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Update Your Profile Info</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="alert alert-error hide">
+                        <button class="close" data-dismiss="alert"></button>
+                    </div>
+                    <form class="form-vertical login-form">
+                        <div class="control-group">
+                            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                            <label class="control-label visible-ie8 visible-ie9">First Name</label>
+                            <div class="controls">
+                                <div class="input-icon left">
+                                    <i class="icon-user"></i>
+                                    <input class="m-wrap placeholder-no-fix" id="userFName" type="text" autocomplete="off" placeholder={{profileData.userPro.firstname}} name="fname" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                            <label class="control-label visible-ie8 visible-ie9">Last Name</label>
+                            <div class="controls">
+                                <div class="input-icon left">
+                                    <i class="icon-user"></i>
+                                    <input class="m-wrap placeholder-no-fix" id="userLName" type="text" autocomplete="off" placeholder={{profileData.userPro.lastName}} name="lname" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                            <label class="control-label visible-ie8 visible-ie9">Email</label>
+                            <div class="controls">
+                                <div class="input-icon left">
+                                    <i class="icon-mail-forward"></i>
+                                    <input class="m-wrap placeholder-no-fix" id="userEmail" type="text" autocomplete="off" placeholder={{profileData.userPro.email}} name="username" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label visible-ie8 visible-ie9">Current Password</label>
+                            <div class="controls">
+                                <div class="input-icon left">
+                                    <i class="icon-lock"></i>
+                                    <input class="m-wrap placeholder-no-fix" id="userPassword" type="password" autocomplete="off" placeholder="Current Password" name="password" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label visible-ie8 visible-ie9">New Password</label>
+                            <div class="controls">
+                                <div class="input-icon left">
+                                    <i class="icon-lock"></i>
+                                    <input class="m-wrap placeholder-no-fix" id="newPassword" type="password" autocomplete="off" placeholder="New Password" name="password" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <a href="" class="btn green pull-right" ng-click="editProfileInfo(profileData.userId)">
+                                Save Changes <i class="m-icon-swapright m-icon-white"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+   
+    <div class="modal hide fade" id="myModalCreateStore" tabindex="-1" role="dialog" aria-labelledby="myModalCreateStoreLabel" aria-hidden="true">
+        <div class="modal-form" ng-controller="specificStoreCtrl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Add Store</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="single-bottom">
+
+                        <form class="form-vertical login-form">
+                            <div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9">Store Name</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-book"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="sN" type="text" autocomplete="off" placeholder="Enter Store Name Here" name="sN" />
+                                    </div>
+                                    <div id="errorOfStoreName" style="color:red"></div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9">Market Name</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-barcode"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="mN" type="text" placeholder="Enter Market Name Here" name="mN" />
+                                    </div>
+                                    <div id="errorOfmarketName" style="color:red"></div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9">City</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-globe"></i>
+                                        <select title='Select City' id="cN">
+                                            <!--<option ng-repeat="x in cityList" value={{x}}>{{x}}</option>-->
+                                            <option value="1" style="margin-left:20px">Lahore</option>
+                                            <option value="2">Karachi</option>
+                                            <option value="3">Islamabad</option>
+                                            <option value="4">Sahiwal</option>
+                                            <option value="5">Peshawar</option>
+                                            <option value="6">Murree</option>
+                                            <option value="7">Multan</option>
+                                            <option value="8">Sialkot</option>
+                                            <option value="9">Rawalpindi</option>
+                                            <option value="10">Quetta</option>
+                                            <option value="11">Swat</option>
+                                            <option value="12">Tando Azam</option>
+                                            <option value="13">Faisalabad</option>
+                                            <option value="14">Gujranwala</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9">Address</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-rupee"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="add" type="text" autocomplete="off" placeholder="Enter Address Here" name="add" />
+                                    </div>
+                                    <div id="errorOfAddressName" style="color:red"></div>
+                                </div>
+                            </div>
+
+                            <!--<div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9">Store Pic</label>
+                                <div class="controls">
+                                    <div>
+                                        <input type="file" class="btn btn-primary" id="fileID4" name="Photo1" value="upload photo" />
+                                    </div>
+                                </div>
+                            </div>-->
+                            <div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9" style="color:black">Other Details</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <textarea id="detail" placeholder="Enter Details Here" cols="160"></textarea>
+                                    </div>
+                                    <div id="errorOfDetail" style="color:red"></div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <a href="" class="btn green pull-right" ng-click="createNewStore(logInUserId)">
+                                    Create Store <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+  
+
+</div>
+
+

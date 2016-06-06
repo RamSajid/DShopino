@@ -1,0 +1,175 @@
+﻿
+<div ng-controller="storeTagCtrl">
+<div class="container" style="background-color:white; margin-top:60px; padding-top:50px; padding-left:30px;padding-right:40px">
+    <div class="product">
+        <div class="row">
+            <div class="span4">
+                <div class=" rsidebar span_1_of_left">
+                    <div class="of-left">
+                        <h3 class="cate">Store Tags</h3>
+                    </div>
+                    <ul class="menu">
+                        <li class="item1">
+                            <table style="margin:5%">
+                                <tr ng-repeat="x in allTags.tagList">
+                                    <td class="span4" ng-click="tagClicked(x.tagID, x.storeName, x.storeAddress, x.city)"><a href=""> {{x.storeName}}</a></td>
+                                </tr>
+                            </table>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <div class="span7">
+
+                <div class="row">
+                <div class="span4">
+
+                    <form class="form-vertical login-form" style="margin-top:30px">
+                        <h3 class="form-title cate">Create Store Tag</h3> <br />
+                        <div class="alert alert-error hide">
+                            <button class="close" data-dismiss="alert"></button>
+                        </div>
+                        <div class="control-group">
+                            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                            <label class="control-label visible-ie8 visible-ie9">Store Name</label>
+                            <div class="controls">
+                                <div class="input-icon left">
+                                    <i class="icon-user"></i>
+                                    <input class="m-wrap placeholder-no-fix" id="StName" type="text" autocomplete="off" placeholder="store name" name="stname" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                            <label class="control-label visible-ie8 visible-ie9">Store Address</label>
+                            <div class="controls">
+                                <div class="input-icon left">
+                                    <i class="icon-user"></i>
+                                    <input class="m-wrap placeholder-no-fix" id="stAddress" type="text" autocomplete="off" placeholder="address" name="address" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                            <label class="control-label visible-ie8 visible-ie9">City</label>
+                            <div class="controls">
+                                <div class="input-icon left">
+                                    <i class="icon-user"></i>
+                                    <input class="m-wrap placeholder-no-fix" id="city" type="text" autocomplete="off" placeholder="city" name="city" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--<a class="btn green" ng-click="createNewTag()">
+                            Create
+                        </a>-->
+                        <div class="form-actions">
+                            <a ng-if="logInUserId!=null" href="" class="btn green" ng-click="createNewTag()">
+                                Create
+                            </a>
+                            <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right">SignIn or SignUp to Create Store Tag</a>
+            </div>
+
+                    </form>
+
+
+                </div>
+
+
+                <div class="span3">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <br />
+                            <h3 class="cate">Store Tags</h3>
+
+                            <p>
+                                You want to share your experirnce about some store but that store is not made here by its
+                                merchant. You can create a TAG for that store. Share your experirnce and let others share theirs.
+                            </p>
+
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                </div>
+                <div style="background-color: white; padding-top: 70px; margin-right:20px">
+                    <h4>{{clickedTagName}}</h4> <br />
+                    {{clickedTagAdd}} , {{clickedTagCity}}
+                    <br /> 
+                    <a ng-if="showReviewBtn==true" class="add-re pull-right" style="margin-right:30px ; margin-bottom:30px" data-toggle="modal" data-target="#myModalT">Write Review</a>
+                </div>
+                <div class="row" ng-repeat="y in tagReviews.reviews" style="background-color: white; padding-top: 50px; margin-right:20px">
+                    <div class="span1">
+                        <img ng-src={{y.image}} class="img-responsive" alt="">
+                    </div>
+                    <div class="span5" ng-controller="navbarCtrl">
+                        <h6 ng-click="viewAnyUserP(y.userID)"><a href="">{{y.firstname}} {{y.lastName}}</a> - {{y.date}}</h6>
+                        <ul>
+                            <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                <div ng-switch="y.rating >= Star" style="display:inline">
+                                    <div ng-switch-when="true" style="display:inline">
+                                        <i class="star icon-star" style="display:inline"> </i>
+                                    </div>
+                                    <div ng-switch-when="false" style="display:inline">
+                                        <i class="star icon-star-empty" style="display:inline"> </i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <p>{{y.review}}</p>
+                        <br />
+                    </div>
+                <div class="span1"> </div>
+                <div class="clearfix"> </div>
+                <br /> <br />
+                </div>
+
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<br /> <br />
+
+    <div class="modal hide fade" id="myModalT" tabindex="-1" role="dialog" aria-labelledby="myModalTLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Leave a Comment</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="single-bottom">
+                        <form>
+                            Rating :
+                            <select id="rateT">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <textarea id="revT" cols="160">Message</textarea>
+
+                            <a ng-if="logInUserId!=null" class="btn green pull-right" ng-click="writeTagReview(clickedTagId, logInUserId)">Send</a>
+                            <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right">SignIn or SignUp to give your review</a>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,1123 @@
+﻿<div ng-controller="specificStoreCtrl">
+    <!--<img ng-src="{{ imgSrc1 }}" />
+    <img ng-src="{{ imgSrc1 }}" />-->
+
+    <div class="blog">
+        <div class="container" style="background-color: white; margin-top: 50px">
+            <div class="blog-top" style="background-color:white ; margin-top:50px; padding-left:40px ; padding-right:40px">
+                <div class=" grid_3 grid-1">
+                    <a ng-if="logInUserId==oneStore.infoOfSpecificStore.store.merchantID" ng-click="deleteSpecificStore(oneStore.infoOfSpecificStore.store.storeID)" class="add-re pull-right" style="margin-right:60px">Delete Store</a>
+                    <h2>{{storeN}}</h2>
+                    <p><b>Address </b> : {{oneStore.infoOfSpecificStore.store.storeAddress}} </p>
+                    <br />
+
+                    <div ng-controller="fileUploadCtrl" ng-if="logInUserId==oneStore.infoOfSpecificStore.store.merchantID">
+                        Change Store Pic:
+                        <input type="file" ng-model="$file1" ngf-select="uploadFilesCreateNewStore(oneStore.infoOfSpecificStore.store.storeID , $file)" accept="image/*" ngf-max-height="1000" ngf-max-size="100MB" />
+                    </div>
+                    
+                    <br />
+                    <a><img ng-src="{{ imgSrc1 }}"  class="img-responsive" alt="" width="1200" height="220" /></a>
+
+                    <div class="blog-poast-info" ng-controller="navbarCtrl">
+                        <ul>
+                            <li ng-click="viewAnyUserP(oneStore.infoOfSpecificStore.store.merchantID)"><a class="admin" href=""><i> </i> Admin : {{oneStore.merchantFName}} {{oneStore.merchantLName}} </a></li>
+                            <li><span><i class="mail-template"> </i>{{oneStore.email}}</span></li>
+                            <li><a class="p-blog" href="#"><i class="comment"> </i>{{oneStore.infoOfSpecificStore.store.totalReviews}} Reviews</a></li>
+                            <!--<li><a class="map" href="#"><i class="map"> </i> Map </a></li>-->
+                        </ul>
+                    </div>
+                    <p><b>Market : </b>{{oneStore.infoOfSpecificStore.store.marketName}}, {{oneStore.infoOfSpecificStore.store.city}}</p>
+                    <p><b>Description : </b>{{oneStore.infoOfSpecificStore.store.description}}</p>
+                </div>
+
+
+
+                <h1>Store Products</h1>
+                <div class="row grid-in" style="margin-left:30px">
+                    <a ng-if="logInUserId==oneStore.infoOfSpecificStore.store.merchantID" class="add-re pull-right" style="margin-right:60px" data-toggle="modal" data-target="#myModalAddProduct">Add Product</a>
+                    <br /> <br /> <br /> <br /> <br />
+                    <div class="span2 grid-top" ng-repeat="x in oneStore.infoOfSpecificStore.products">
+                        <a class="b-link-stripe b-animate-go thickbox">
+                            <img ng-src={{x.prodPic}} class="img-responsive" alt="" height="300" width="200">
+                            <div class="b-wrapper" ng-click="toSpecificProduct(x.prodID , x.prodName)">
+                                <h6 class="b-animate b-from-left   b-delay03 ">
+                                    <br /> <br /> <br />
+                                    Rating : {{x.prodRating}}<br />
+                                    Reviews : {{x.totalReviews}}<br />
+                                </h6>
+                            </div>
+                        </a>
+                        <p>
+                            <a ng-click="toSpecificProduct(x.prodID , x.prodName)" style="font-size:large"><b>{{x.prodName}}</b></a> 
+                        </p>
+                        <p style="font-size:small">
+                            {{x.categoryName}} - {{x.subCatName}} <br />
+                            <table>
+                                <tr>
+                                    <td ng-click="writeProductReviewClick(x.prodID)"> <a>write a review</a> </td>
+                                    </tr>
+                                </table>
+                            
+                        </p>
+
+                       <!--<a data-toggle="modal" data-target="#myModalP">write a review</a> <br /> <br /> <br />-->
+                        
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <br /> <br /> <br /> <br />
+
+            </div>
+        </div>
+    </div>
+
+    <!--<li data-content="television" class="selected span8" style="margin-left:140px">-->
+
+    <br />
+    <div style="background-color: white; padding-top: 30px; padding-bottom:20px; margin-left: 90px; margin-right:80px">
+        <a class="add-re pull-right" style="margin-right:40px ; margin-bottom:30px" data-toggle="modal" data-target="#myModalStoreRev">Write Review</a>
+        <br /> <br />
+    </div>
+    <div class="row" ng-repeat="z in oneStore.infoOfSpecificStore.reviews" style="background-color: white; padding-top: 30px; margin-left: 90px; margin-right:80px">
+        <div class="span1">
+            <img ng-src={{z.userImage}} class="img-responsive" alt="" />
+        </div>
+        <div class="span7" ng-controller="navbarCtrl">
+            <h6 ng-click="viewAnyUserP(z.userID)"><a href="">{{z.firstname}} {{z.lastName}}</a> - {{z.date}}</h6>
+            <ul>
+                <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                    <div ng-switch="z.rating >= Star" style="display:inline">
+                        <div ng-switch-when="true" style="display:inline">
+                            <i class="star icon-star" style="display:inline"> </i>
+                        </div>
+                        <div ng-switch-when="false" style="display:inline">
+                            <i class="star icon-star-empty" style="display:inline"> </i>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <p>{{z.review}}</p>
+            <br />
+        </div>
+        <div class="span3"> </div>
+        <div class="clearfix"> </div> <br /> <br />
+    </div>
+
+    <!--</li>-->
+
+    <!--<div>
+        <select title='Select Category' id="catV" ng-controller="navbarCtrl">
+            <option ng-repeat="x in catSubCat.catList" ng-click="selectedCat(x.catID)" value={{x.catID}}>{{x.catName}}</option>
+        </select>
+    </div>-->
+
+
+    <div class="modal hide fade" id="myModalStoreRev" tabindex="-1" role="dialog" aria-labelledby="myModalStoreRevLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Leave a Comment</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="">
+                        <form>
+                            Rating :
+                            <select id="rateS">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select> <br /> <br />
+                            <textarea id="revS" cols="160"></textarea>
+                            <br />
+                            <a ng-if="logInUserId!=null" class="btn green pull-right" ng-click="writeStoreReview(logInUserId , oneStore.infoOfSpecificStore.store.storeID , oneStore.infoOfSpecificStore.store.marketID)">Send</a>
+                            <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right">SignIn or SignUp to give your review</a>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal hide fade" id="myModalProductRev" tabindex="-1" role="dialog" aria-labelledby="myModalProductRevLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Leave a Comment</h4>
+                </div>
+                <div class="modal-body" ng-controller="specificProductCtrl">
+
+                    <div class="">
+                        <form>
+                            Rating :
+                            <select id="rate">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <br /> <br />
+                            <textarea id="rev" cols="160"></textarea><span style="color:red">
+                                <br />
+
+                                <a ng-if="logInUserId!=null" class="btn green pull-right" ng-click="writeProductReview(logInUserId , clickedProductId , oneStore.infoOfSpecificStore.store.storeID)">Send</a>
+                                <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right"> SignIn or SignUp to give your review </a>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal hide fade" id="myModalAddProduct" tabindex="-1" role="dialog" aria-labelledby="myModalAddProductLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Add Product</h4>
+                </div>
+                <div class="modal-body">
+                    <select title='Select Category' id="catV" ng-controller="navbarCtrl">
+                        <option ng-click="selectedCat(x.catID)" ng-repeat="x in catSubCat.catList" value={{x.catID}}>{{x.catName}}</option>
+                    </select>
+
+                    <select ng-model="sCat" id="sCatV">
+                        <option ng-repeat="y in selectedSubCatList.subCatList" ng-click="selectedSubCat(y.subCatID)" value={{y.subCatID}}>{{y.subCatName}}</option>
+                    </select>
+                    <div style="color:red" id="errorSubCat"></div>
+                    <div>
+
+                        <form class="form-vertical login-form">
+                            <div class="control-group">
+                                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                <label class="control-label visible-ie8 visible-ie9">Title</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-book"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="title" type="text" autocomplete="off" placeholder="Enter Title Here" name="title" />
+                                    </div>
+                                    <div style="color:red" id="errorTitle"></div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                <label class="control-label visible-ie8 visible-ie9">MPN</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-barcode"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="mpn" type="text" autocomplete="off" placeholder="Enter MPN Here" name="mpn" />
+                                    </div>
+                                    <div style="color:red" id="errorMpn"></div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                <label class="control-label visible-ie8 visible-ie9">Country of Manufacture</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-globe"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="com" type="text" autocomplete="off" placeholder="Enter Country of Manufacture Here" name="com" />
+                                    </div>
+                                    <div style="color:red" id="errorCom"></div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                <label class="control-label visible-ie8 visible-ie9">Price</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-rupee"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="price" type="text" autocomplete="off" placeholder="Enter Price Here" name="price" />
+                                    </div>
+                                    <div style="color:red" id="errormCPrice"></div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                <label class="control-label visible-ie8 visible-ie9">Condition</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <select ng-select="new" id="condition">
+                                            <option value="new">New</option>
+                                            <option>Used</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="color:red" id="errorCondition"></div>
+                            </div>
+
+
+                            <div ng-if="selectedSubCatId == 1">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Gender</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="babyGender">
+                                                <option value="new">Baby Girl</option>
+                                                <option>Baby Boy</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-briefcase"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="babyBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorBabyBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Color</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-cloud"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="babyColor" type="text" autocomplete="off" placeholder="Enter Color Here" name="color" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorBabyColor"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 25">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Subject</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="bookSubject">
+                                                <option value="new">Activity & Coloring</option>
+                                                <option>Bed Time</option>
+                                                <option>Annual</option>
+                                                <option>Biography</option>
+                                                <option>Classics</option>
+                                                <option>Fiction</option>
+                                                <option>Fairytales</option>
+                                                <option>Geography</option>
+                                                <option>Health & Fitness </option>
+                                                <option>History</option>
+                                                <option>Holidays</option>
+                                                <option>Humour</option>
+                                                <option>Performing Arts</option>
+                                                <option>Picturing</option>
+                                                <option>Poetry</option>
+                                                <option>Reference</option>
+                                                <option>Religion</option>
+                                                <option>School Books</option>
+                                                <option>Science & Nature</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Language</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="bookLang" type="text" autocomplete="off" placeholder="Enter Language Here" name="lang" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorBookLang"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Age Group</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-cloud"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="bookAge" type="text" autocomplete="off" placeholder="Enter Age Group Here" name="age" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorBookAge"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Writer Name</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="bookWriter" type="text" autocomplete="off" placeholder="Enter Author Name Here" name="writer" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorBookWriter"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Year Of Publication</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-calendar"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="bookPubYr" type="text" autocomplete="off" placeholder="Enter Language Here" name="lang" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorBookPubYr"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Body Area</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <input type="checkbox" value="First Edition" id="bookBA1" ng-click="bookBodyArea1=!bookBodyArea1" />
+                                            <input type="checkbox" value="Personalized" id="bookBA2" ng-click="bookBodyArea2=!bookBodyArea2" />
+                                            <input type="checkbox" value="Illustrated" id="bookBA3" ng-click="bookBodyArea3=!bookBodyArea3" />
+                                            <input type="checkbox" value="Large Print" id="bookBA4" ng-click="bookBodyArea4=!bookBodyArea4" />
+                                            <input type="checkbox" value="Signed" id="bookBA5" ng-click="bookBodyArea5=!bookBodyArea5" />
+                                            <input type="checkbox" value="Binded" id="bookBA6" ng-click="bookBodyArea6=!bookBodyArea6" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 9">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-briefcase"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="cameraBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorCameraBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Model</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-briefcase"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="cameraModel" type="text" autocomplete="off" placeholder="Enter Model Here" name="model" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorCameraModel"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Color</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-cloud"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="cameraColor" type="text" autocomplete="off" placeholder="Enter Color Here" name="color" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorCameraColor"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 19">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Gender</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="clothGender">
+                                                <option value="new">Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-briefcase"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="clothBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorClothBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Size</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="clothSize">
+                                                <option value="new">Large</option>
+                                                <option>X Large</option>
+                                                <option>2X Large </option>
+                                                <option>Small </option>
+                                                <option>X Small </option>
+                                                <option>Medium </option>
+                                                <option>Free Size </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Color</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-cloud"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="clothColor" type="text" autocomplete="off" placeholder="Enter Color Here" name="color" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorClothColor"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 22">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Specification</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="foodSpec">
+                                                <option value="new">Diabetic</option>
+                                                <option>Glutan Free</option>
+                                                <option>Hala</option>
+                                                <option>Low Carbohydrate</option>
+                                                <option>Low Fats</option>
+                                                <option>Organic</option>
+                                                <option>Sugar Free</option>
+                                                <option>Vegan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Company</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="foodBrand" type="text" autocomplete="off" placeholder="Enter Company Here" name="company" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Manufacture Date</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-calendar"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="foodMd" type="text" autocomplete="off" placeholder="DD-MM-YYYY" name="md" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorFoodMd"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Expiry Date</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-calendar"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="foodEd" type="text" autocomplete="off" placeholder="DD-MM-YYYY" name="ed" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorFoodEd"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 21">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Material</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <input type="checkbox" value="Aluminium" id="fM1" ng-click="furnitureMaterial1=!furnitureMaterial1" />
+                                            <input type="checkbox" value="Ash" id="fM2" ng-click="furnitureMaterial2=!furnitureMaterial2" />
+                                            <input type="checkbox" value="Bamboo" id="fM3" ng-click="furnitureMaterial3=!furnitureMaterial3" />
+                                            <input type="checkbox" value="Bronze" id="fM4" ng-click="furnitureMaterial4=!furnitureMaterial4" />
+                                            <input type="checkbox" value="Brass" id="fM5" ng-click="furnitureMaterial5=!furnitureMaterial5" />
+                                            <input type="checkbox" value="Cast Iron" id="fM6" ng-click="furnitureMaterial6=!furnitureMaterial6" />
+                                            <input type="checkbox" value="Wood" id="fM7" ng-click="furnitureMaterial7=!furnitureMaterial7" />
+                                            <input type="checkbox" value="Copper" id="fM8" ng-click="furnitureMaterial8=!furnitureMaterial8" />
+                                            <input type="checkbox" value="Glass" id="fM9" ng-click="furnitureMaterial9=!furnitureMaterial9" />
+                                            <input type="checkbox" value="Metal" id="fM10" ng-click="furnitureMaterial10=!furnitureMaterial10" />
+                                            <input type="checkbox" value="Fabric" id="fM11" ng-click="furnitureMaterial11=!furnitureMaterial11" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="furnitureBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorFurnitureBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Style</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="furnitureStyle">
+                                                <option value="new">Antique</option>
+                                                <option>Arts & Crafts </option>
+                                                <option>Children</option>
+                                                <option>Colonial</option>
+                                                <option>Country</option>
+                                                <option>Farm House</option>
+                                                <option>Loudge</option>
+                                                <option>Modern</option>
+                                                <option>South Western</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Color</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="furnitureColor" type="text" autocomplete="off" placeholder="Enter Color Here" name="color" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorFurnitureColor"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 24">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Category</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="homeDecorCat">
+                                                <option value="new">curtains, blinds, shades</option>
+                                                <option>decorative accents </option>
+                                                <option>pillows</option>
+                                                <option>shelves</option>
+                                                <option>storage</option>
+                                                <option>frames & display boxes</option>
+                                                <option>Home Decor collections </option>
+                                                <option>kids decor</option>
+                                                <option>Lamp & Lighting</option>
+                                                <option>mirrors</option>
+                                                <option>pouts</option>
+                                                <option>rugs</option>
+                                                <option>slip covers & futons</option>
+                                                <option>covers</option>
+                                                <option>throws</option>
+                                                <option>wall decor</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="homeDecorBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorHomeDecorBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Name of Product</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="homeDecorNP" type="text" autocomplete="off" placeholder="Enter Name Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorHomeDecorNP"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Style</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="homeDecorStyle">
+                                                <option value="new">Industrial Home</option>
+                                                <option>Modern Home </option>
+                                                <option>Luxury Home</option>
+                                                <option>Global Home</option>
+                                                <option>Romantic Home</option>
+                                                <option>Home Style & Inspiration</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Type</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="homeDecorType" type="text" autocomplete="off" placeholder="Enter Type Here" name="type" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorHomeDecorType"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 26">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Metal</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="jewelMetal">
+                                                <option value="new">Aluminium</option>
+                                                <option>Brass </option>
+                                                <option>Copper</option>
+                                                <option>Zinc</option>
+                                                <option>Platinium</option>
+                                                <option>Rose Gold</option>
+                                                <option>White Gold </option>
+                                                <option>Diamond</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="jewelBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorJewelBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Body Area</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <input type="checkbox" value="Universal" id="jBA1" ng-click="jewelBA1!=jewelBA1" />
+                                            <input type="checkbox" value="Ear" id="jBA2" ng-click="jewelBA2!=jewelBA2" />
+                                            <input type="checkbox" value="Lip" id="jBA3" ng-click="jewelBA3!=jewelBA3" />
+                                            <input type="checkbox" value="Nose" id="jBA4" ng-click="jewelBA4!=jewelBA4" />
+                                            <input type="checkbox" value="Navel" id="jBA5" ng-click="jewelBA5!=jewelBA5" />
+                                            <input type="checkbox" value="Wrist" id="jBA6" ng-click="jewelBA6!=jewelBA6" />
+                                            <input type="checkbox" value="Labret" id="jBA7" ng-click="jewelBA7!=jewelBA7" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Color</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="jewelColor" type="text" autocomplete="off" placeholder="Enter Color Here" name="color" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorJewelColor"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 23">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Category</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="kCat">
+                                                <option value="new">appliances</option>
+                                                <option>bakeware</option>
+                                                <option>cookware</option>
+                                                <option>cuttlery</option>
+                                                <option>storage & organization</option>
+                                                <option>tools & gadgets</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="kBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorKBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Material</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="kMaterial" type="text" autocomplete="off" placeholder="Enter Material Here" name="material" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorKMaterial"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Type</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="kType" type="text" autocomplete="off" placeholder="Enter Type Here" name="type" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorKType"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 27">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Features</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <input type="checkbox" value="Alchol Free" id="mF1" ng-click="mupF1=!mupF1" />
+                                            <input type="checkbox" value="Natural Ingredients" id="mF2" ng-click="mupF2=!mupF2" />
+                                            <input type="checkbox" value="Long Lasting" id="mF3" ng-click="mupF3=!mupF3" />
+                                            <input type="checkbox" value="Oil Free" id="mF4" ng-click="mupF4=!mupF4" />
+                                            <input type="checkbox" value="Organic" id="mF5" ng-click="mupF5=!mupF5" />
+                                            <input type="checkbox" value="Perfume Free" id="mF6" ng-click="mupF6=!mupF6" />
+                                            <input type="checkbox" value="Vegan" id="mF7" ng-click="mupF7=!mupF7" />
+                                            <input type="checkbox" value="Shine Control" id="mF8" ng-click="mupF8=!mupF8" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mupBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMupBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Shade</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mupShade" type="text" autocomplete="off" placeholder="Enter Shade Here" name="shade" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMupShade"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Formulation</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mupForm" type="text" autocomplete="off" placeholder="Enter Formulation Here" name="form" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMupForm"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 11">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Brand</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobBrand" type="text" autocomplete="off" placeholder="Enter Brand Here" name="brand" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobBrand"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Dimensions</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobDim" type="text" autocomplete="off" placeholder="Enter Dimensions Here" name="dim" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobDim"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Messaging</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobMsg" type="text" autocomplete="off" placeholder="Enter Messaging Style Here" name="dim" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobMsg"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Entertainment</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobEnt" type="text" autocomplete="off" placeholder="Enter Entertainment Here" name="dim" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobEnt"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Weight</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobWeight" type="text" autocomplete="off" placeholder="Enter Weight Here" name="weight" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMObWeight"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Battery</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobBattery" type="text" autocomplete="off" placeholder="Enter Battery Here" name="battery" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobBattery"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">OS</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobOs" type="text" autocomplete="off" placeholder="Enter OS Here" name="os" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobOs"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Memory</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobMem" type="text" autocomplete="off" placeholder="Enter Memory Here" name="mem" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobMem"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Processor</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobPro" type="text" autocomplete="off" placeholder="Enter Processor Here" name="pro" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobPro"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Connectivity</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobCon" type="text" autocomplete="off" placeholder="Enter Connectivity Here" name="con" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobCon"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Display Size</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobDs" type="text" autocomplete="off" placeholder="Enter Display Size Here" name="ds" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMObDs"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Display Color</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobDc" type="text" autocomplete="off" placeholder="Enter Display Color Here" name="dc" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobDc"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Operating Frequency</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobOf" type="text" autocomplete="off" placeholder="Enter Operating Frequency Here" name="of" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobOf"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Browser</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobBro" type="text" autocomplete="off" placeholder="Enter Browser Here" name="bro" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobBro"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Color</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobColor" type="text" autocomplete="off" placeholder="Enter Color Here" name="color" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobColor"></div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Camera Pixels</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mobCpx" type="text" autocomplete="off" placeholder="Enter Camera Pixels Here" name="cpx" />
+                                        </div>
+                                    </div>
+                                    <div style="color:red" id="errorMobCpx"></div>
+                                </div>
+                            </div>
+
+                            <div ng-if="selectedSubCatId == 6">
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Fuel</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <select ng-select="new" id="mcFuel">
+                                                <option value="new">Petrol</option>
+                                                <option>Diesel</option>
+                                                <option>CNG</option>
+                                                <option>LPG</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Year</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mcYr" type="text" autocomplete="off" placeholder="Enter Year Here" name="yr" />
+                                        </div>
+                                        <div style="color:red" id="errorMcYr"></div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">KM Driven Yet</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mcKm" type="text" autocomplete="off" placeholder="Enter KM's' Here" name="km" />
+                                        </div>
+                                        <div style="color:red" id="errormcKm"></div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Model</label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="icon-pencil"></i>
+                                            <input class="m-wrap placeholder-no-fix" id="mcModel" type="text" autocomplete="off" placeholder="Enter Model Here" name="model" />
+                                        </div>
+                                        <div style="color:red" id="errormcModel"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9">Upload Product Pics </label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <div>
+                                            <br /><input type="file" class="btn btn-primary" id="fileID1" name="Photo1" value="upload photo" />
+                                        </div>
+                                        <div>
+                                            <br /><input type="file" class="btn btn-primary" id="fileID2" name="Photo1" value="upload photo" />
+                                        </div>
+                                        <div>
+                                            <br /><input type="file" class="btn btn-primary" id="fileID3" name="Photo1" value="upload photo" />
+                                        </div>
+                                        <div>
+                                            <br /><input type="file" class="btn btn-primary" id="fileID4" name="Photo1" value="upload photo" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+
+                            <div class="control-group">
+                                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                <label class="control-label visible-ie8 visible-ie9">Other Details</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <textarea class="m-wrap placeholder-no-fix" id="detail" placeholder="Enter Details Here" name="detail" cols="30" rows="3" />
+                                    </div>
+                                    <div style="color:red" id="errorDetail"></div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <a class="btn green pull-right" ng-click="addProductM(oneStore.infoOfSpecificStore.store.storeID)">
+                                    Add Product <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

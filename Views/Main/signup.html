@@ -1,0 +1,71 @@
+﻿
+<div class="row" ng-controller="signUpCtrl">
+    <div class="span8"> </div>
+    <div class="span4">
+        <form class="form-vertical login-form" style="margin-top:30px">
+            <h3 class="form-title">Create your account</h3> <br />
+            <div class="alert alert-error hide">
+                <button class="close" data-dismiss="alert"></button>
+            </div>
+            <div class="control-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">First Name</label>
+                <div class="controls">
+                    <div class="input-icon left">
+                        <i class="icon-user"></i>
+                        <input class="m-wrap placeholder-no-fix" id="userFName" type="text" autocomplete="off" placeholder="first name" name="fname" />
+                    </div>
+                </div>
+                <div style="color:red" id="errorUserFName"></div>
+            </div>
+            <div class="control-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">Last Name</label>
+                <div class="controls">
+                    <div class="input-icon left">
+                        <i class="icon-user"></i>
+                        <input class="m-wrap placeholder-no-fix" id="userLName" type="text" autocomplete="off" placeholder="last name" name="lname" />
+                    </div>
+                </div>
+                <div style="color:red" id="errorUserLName"></div>
+            </div>
+            <div class="control-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">Email</label>
+                <div class="controls">
+                    <div class="input-icon left">
+                        <i class="icon-user"></i>
+                        <input class="m-wrap placeholder-no-fix" id="userEmail" type="text" autocomplete="off" placeholder="Username" name="username" />
+                    </div>
+                </div>
+                <div style="color:red" id="errorUserEmail"></div>
+            </div>
+            <div class="control-group">
+                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                <div class="controls">
+                    <div class="input-icon left">
+                        <i class="icon-lock"></i>
+                        <input class="m-wrap placeholder-no-fix" id="userPassword" type="password" autocomplete="off" placeholder="Password" name="password" />
+                    </div>
+                </div>
+                <div style="color:red" id="errorUserPassword"></div>
+            </div>
+            <div class="control-group">
+                <ul style="list-style:none">
+                    <li>
+                        <select id="uOrM">
+                            <option value="user">user</option>
+                            <option value="merchant">merchant</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-actions">
+
+                <a href="" class="btn green pull-right" ng-click="signup()">
+                    Sign Up <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </form>
+        </div>
+    </div>

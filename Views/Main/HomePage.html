@@ -1,0 +1,125 @@
+﻿
+
+
+
+<div class="banner">
+    <div class="container">
+        <script src="../../new_store-web/web/js/responsiveslides.min.js"></script>
+        <script>
+            $(function () {
+                $("#slider").responsiveSlides({
+                    auto: true,
+                    nav: true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    pager: true,
+                });
+            });
+        </script>
+        <div id="top" class="callbacks_container">
+            <ul class="rslides" id="slider">
+                <li>
+                    <div class="banner-text" style="color:orange">
+                        <h3>Online Shopping</h3>
+                        <p>Shop from Home or Work. Don't have enough time to visit market. Just open Shopino and have a look to all the products and order the best one. !! Problem solved .</p>
+                        <a >shopino</a>
+
+                    </div>
+
+                </li>
+                <li>
+
+                    <div class="banner-text" style="color:orange">
+                        <h3>Rate and Review  </h3>
+                        <p>This website provides you the opportunity to Rate and Review different stores and its products. Let others know about your experience of stores and products. </p>
+                        <a>shopino</a>
+                    </div>
+
+                </li>
+                <li>
+
+                    <div class="banner-text" style="color:orange">
+                        <h3>Easy Search </h3>
+                        <p>Now finding the desired product or reaching your desired market is much easier.Providing you different search criterias making the desired list of markets, stores and products as results. </p>
+                        <a>shopino</a>
+
+                    </div>
+
+                </li>
+                <li>
+                    <div class="banner-text" style="color:orange">
+                        <h3>Create your own Store</h3>
+                        <p>Let more people know about your stores and its products. You can create your stores here and add its products. </p>
+                        <a>shopino</a>
+
+                    </div>
+
+                </li>
+                
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<div ng-controller="collapseCtrl">
+    <br /> 
+    <a href="#" style="margin-left: 90px" ng-click="x=!x" class="add-cart item_add">Highest Rated Stores</a>
+    <a href="#" ng-click="x=!x" class="add-cart item_add">Lowest Rated Stores</a>
+
+    <div ng-if="x==true">
+        <div class="row" ng-repeat="x in HRS.highestRatedStore" style="background-color: white; padding-top: 30px; margin-left: 90px; margin-right:80px">
+            <div class="span1">
+                <img ng-src={{x.storePic}} class="img-responsive" alt="" />
+            </div>
+
+            <div class="span5" ng-controller="specificMarketCtrl">
+                <h6 ng-click="toSpecificStore(x.storeID , x.storeName)"><a href=""><b>{{x.storeName}}</b></a></h6>
+                {{x.marketName}} , {{x.city}} <br />
+                {{x.totalReviews}} Reviews <br />
+                <ul>
+                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                        <div ng-switch="x.storeRating >= Star" style="display:inline">
+                            <div ng-switch-when="true" style="display:inline">
+                                <i class="star icon-star" style="display:inline"> </i>
+                            </div>
+                            <div ng-switch-when="false" style="display:inline">
+                                <i class="star icon-star-empty" style="display:inline"> </i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="span3"></div>
+            <div class="clearfix"> </div> <br />
+        </div>
+    </div>
+
+    <div ng-if="x==false">
+        <div class="row" ng-repeat="x in LRS.lowestRatedStore" style="background-color: white; padding-top: 30px; margin-left: 90px; margin-right:80px">
+            <div class="span1">
+                <img ng-src={{x.storePic}} class="img-responsive" alt="" />
+            </div>
+
+            <div class="span5" ng-controller="specificMarketCtrl">
+                <h6 ng-click="toSpecificStore(x.storeID , x.storeName)"><a href="#"><b>{{x.storeName}}</b></a></h6>
+                {{x.marketName}} , {{x.city}} <br />
+                {{x.totalReviews}} Reviews <br />
+                <ul>
+                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                        <div ng-switch="x.storeRating >= Star" style="display:inline">
+                            <div ng-switch-when="true" style="display:inline">
+                                <i class="star icon-star" style="display:inline"> </i>
+                            </div>
+                            <div ng-switch-when="false" style="display:inline">
+                                <i class="star icon-star-empty" style="display:inline"> </i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div> <br /> <br />
+        </div>
+    </div>
+    </div>
+

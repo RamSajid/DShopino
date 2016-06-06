@@ -1,0 +1,203 @@
+﻿
+<div ng-controller="viewAnyUserProfileCtrl">
+
+    <div class="container" style="background-color:white; margin-top:60px; padding-top:50px; padding-left:30px;padding-right:40px">
+        <div class="product">
+            <div class="row">
+                <div class="span3">
+                    <div class=" rsidebar span_1_of_left">
+                        <div class="of-left">
+                            <h3 class="cate">{{anyUserData.userPro.firstname}}'s Profile</h3>
+                        </div>
+                        <ul class="menu">
+                            <li class="item3" ng-if="uM==2">
+                                <a href="#">Stores Created</a>
+                                <ul class="cute" ng-controller="specificMarketCtrl">
+                                    <li class="subitem1">
+                                        <table style="margin:5%">
+                                            <tr ng-repeat="x in anyUserData.userPro.storeCreated">
+                                                <td class="span4"><h5 ng-click="toSpecificStore(x.storeID , x.storeName)"><a style="color:black" href=""> {{x.storeName}}</a></h5> </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="item4">
+                                <a href="#">Stores Reviewed</a>
+                                <ul class="cute" ng-controller="specificMarketCtrl">
+                                    <li class="subitem1">
+                                        <table style="margin:5%">
+                                            <tr ng-repeat="x in anyUserData.userPro.reviewsStore">
+                                                <td class="span4"><h5 ng-click="toSpecificStore(x.storeID , x.storeName)"><a style="color:black" href=""> {{x.storeName}}</a></h5> </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="item4">
+                                <a href="#">Store Tags Reviewed</a>
+                                <ul class="cute" ng-controller="storeTagCtrl">
+                                    <li class="subitem1">
+                                        <table style="margin:5%">
+                                            <tr ng-repeat="x in anyUserData.userPro.reviewTag">
+                                                <td class="span4"><h5 ng-click="tagClicked(x.tagID, x.tagName, '', '')"><a style="color:black" href=""> {{x.tagName}}</a></h5> </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="item4">
+                                <a href="#">Store Tags Created</a>
+                                <ul class="cute" ng-controller="storeTagCtrl">
+                                    <li class="subitem1">
+                                        <table style="margin:5%">
+                                            <tr ng-repeat="x in anyUserData.userPro.tagCreated">
+                                                <td class="span4"><h5 ng-click="tagClicked(x.tagID, x.storeName, x.storeAddress, x.city)"><a style="color:black" href=""> {{x.storeName}}</a></h5> </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $(function () {
+                        var menu_ul = $('.menu > li > ul'),
+                               menu_a = $('.menu > li > a');
+                        menu_ul.hide();
+                        menu_a.click(function (e) {
+                            e.preventDefault();
+                            if (!$(this).hasClass('active')) {
+                                menu_a.removeClass('active');
+                                menu_ul.filter(':visible').slideUp('normal');
+                                $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                            } else {
+                                $(this).removeClass('active');
+                                $(this).next().stop(true, true).slideUp('normal');
+                            }
+                        });
+
+                    });
+                </script>
+
+                <div class="span4">
+
+                    <div>
+                        <img ng-src={{imgSrc3a}} />
+                    </div>
+                </div>
+
+
+                <div class="span4">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{anyUserData.userPro.firstname}} {{anyUserData.userPro.lastName}}</h4>
+                            <div class="star-on">
+                                <div>
+                                    <a href="#"> {{anyUserData.userPro.email}} </a>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <p>
+                                <br /> <br />
+                            </p>
+                            
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+
+    <div>
+        <a href="" style="margin-left: 50px" ng-click="xx1=0" class="add-cart item_add">Store Reviews</a>
+        <a href="" ng-click="xx1=1" class="add-cart item_add">Product Reviews</a>
+        <a href="" ng-click="xx1=2" class="add-cart item_add">Store Tag Reviews</a>
+        <div ng-if="xx1==0" class="row" ng-repeat="x in anyUserData.userPro.reviewsStore" style="background-color: white; padding-top: 40px; margin-left: 50px; margin-right:50px">
+            <div class="span1">
+                <img ng-src={{imgSrc3a}} class="img-responsive" alt="">
+            </div>
+            <div class="span7" ng-controller="specificMarketCtrl">
+                <h6 ng-click="toSpecificStore(x.storeID , x.storeName)">reviewed <a href="">{{x.storeName}}</a> - {{x.date}}</h6>
+                <ul>
+                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                        <div ng-switch="x.rating >= Star" style="display:inline">
+                            <div ng-switch-when="true" style="display:inline">
+                                <i class="star icon-star" style="display:inline"> </i>
+                            </div>
+                            <div ng-switch-when="false" style="display:inline">
+                                <i class="star icon-star-empty" style="display:inline"> </i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <p>{{x.review}}</p>
+                <br />
+            </div>
+            <div class="span3"> </div>
+            <div class="clearfix"> </div>
+        </div>
+
+        <div ng-if="xx1==1" class="row" ng-repeat="x in anyUserData.userPro.reviewsProd" style="background-color: white; padding-top: 40px; margin-left: 50px; margin-right:50px">
+            <div class="span1">
+                <img ng-src={{imgSrc3a}} class="img-responsive" alt="">
+            </div>
+            <div class="span7" ng-click="specificStoreCtrl">
+                <h6 ng-click="toSpecificProduct(x.productID , x.productName)">reviewed <a href="">{{x.productName}}</a> - {{x.date}}</h6>
+                <ul>
+                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                        <div ng-switch="x.rating >= Star" style="display:inline">
+                            <div ng-switch-when="true" style="display:inline">
+                                <i class="star icon-star" style="display:inline"> </i>
+                            </div>
+                            <div ng-switch-when="false" style="display:inline">
+                                <i class="star icon-star-empty" style="display:inline"> </i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <p>{{x.review}}</p>
+                <br />
+            </div>
+            <div class="span3"> </div>
+            <div class="clearfix"> </div>
+        </div>
+
+        <div ng-if="xx1==2" class="row" ng-repeat="x in anyUserData.userPro.reviewTag" style="background-color: white; padding-top: 40px; margin-left: 50px; margin-right:50px">
+            <div class="span1">
+                <img ng-src={{imgSrc3a}} class="img-responsive" alt="">
+            </div>
+            <div class="span7" ng-controller="storeTagCtrl">
+                <h6 ng-click="tagClicked(x.tagID, x.tagName, '', '')">reviewed <a href="">{{x.tagName}}</a> - {{x.date}}</h6>
+                <ul>
+                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                        <div ng-switch="x.rating >= Star" style="display:inline">
+                            <div ng-switch-when="true" style="display:inline">
+                                <i class="star icon-star" style="display:inline"> </i>
+                            </div>
+                            <div ng-switch-when="false" style="display:inline">
+                                <i class="star icon-star-empty" style="display:inline"> </i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <p>{{x.review}}</p>
+                <br />
+            </div>
+            <div class="span3"> </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+</div>

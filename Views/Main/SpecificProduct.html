@@ -1,0 +1,915 @@
+﻿<div ng-controller="specificProductCtrl">
+    <div class="container" style="background-color:white; margin-top:60px; padding-top:50px; padding-left:30px;padding-right:40px">
+        <div class="product">
+
+            
+            <div class="row">
+                <br />
+                
+                <a ng-if="logInUserId==oneProduct.merchantID" ng-click="deleteSpecificProduct(prod)" class="add-re pull-right" style="margin-right:60px">Delete Product</a>
+                <br />
+                <div class="span3">
+                    <div class=" rsidebar span_1_of_left" ng-controller="navbarCtrl">
+                        <div class="of-left">
+                            <h3 class="cate">Categories</h3>
+                        </div>
+                        <ul class="menu">
+
+                            <li class="item1" >
+                                <a>
+                                <table style="margin:5%">
+                                    <tr ng-repeat="x in catSubCat.catList">
+                                        <td class="span4">
+                                            <h5 ng-click="toSpecificCat(x.catID, x.catName)">{{x.catName}}</h5>
+
+                                                <ul class="cute">
+                                                    <li class="subitem1">
+                                                        <table style="margin:5%">
+                                                            <tr ng-repeat="y in x.subCatList">
+                                                                <td class="span4" ng-click="toSpecificSubCat(y.subCatID, y.subCatName)"> {{y.subCatName}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </li>
+                                                </ul>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                                </a>
+                            </li>
+
+                            <!--<li class="item1" ng-repeat="x in catSubCat.catList">
+                                <a>{{x.catName}} </a>
+                                <ul class="cute">
+                                    <li class="subitem1"><h6 ng-click="toSpecificCat(x.catID, x.catName)"><a>{{x.catName}} </a></h6> </li>
+                                    <li class="subitem1">
+                                        <table style="margin:5%">
+                                            <tr ng-repeat="y in x.subCatList">
+                                                <td class="span4" ng-click="toSpecificSubCat(y.subCatID, y.subCatName)"><a> {{y.subCatName}}</a></td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </li>-->
+
+                            <!--<li class="item2">
+                                <a href="#">Women </a>
+                                <ul class="cute">
+                                    <li class="subitem1"><a href="#">Cute Kittens </a></li>
+                                    <li class="subitem2"><a href="#">Strange Stuff </a></li>
+                                    <li class="subitem3"><a href="#">Automatic Fails </a></li>
+                                </ul>
+                            </li>
+                            <li class="item3">
+                                <a href="#">Kids</a>
+                                <ul class="cute">
+                                    <li class="subitem1"><a href="#">Cute Kittens </a></li>
+                                    <li class="subitem2"><a href="#">Strange Stuff </a></li>
+                                    <li class="subitem3"><a href="#">Automatic Fails</a></li>
+                                </ul>
+                            </li>
+                            <li class="item4">
+                                <a href="#">Accesories</a>
+                                <ul class="cute">
+                                    <li class="subitem1"><a href="#">Cute Kittens </a></li>
+                                    <li class="subitem2"><a href="#">Strange Stuff </a></li>
+                                    <li class="subitem3"><a href="#">Automatic Fails</a></li>
+                                </ul>
+                            </li>
+                            <li class="item4">
+                                <a href="#">Shoes</a>
+                                <ul class="cute">
+                                    <li class="subitem1"><a href="#">Cute Kittens </a></li>
+                                    <li class="subitem2"><a href="#">Strange Stuff </a></li>
+                                    <li class="subitem3"><a href="product.html">Automatic Fails </a></li>
+                                </ul>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $(function () {
+                        var menu_ul = $('.menu > li > ul'),
+                               menu_a = $('.menu > li > a');
+                        menu_ul.hide();
+                        menu_a.click(function (e) {
+                            e.preventDefault();
+                            if (!$(this).hasClass('active')) {
+                                menu_a.removeClass('active');
+                                menu_ul.filter(':visible').slideUp('normal');
+                                $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                            } else {
+                                $(this).removeClass('active');
+                                $(this).next().stop(true, true).slideUp('normal');
+                            }
+                        });
+
+                    });
+                </script>
+
+                <div class="span4">
+
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li data-thumb="{{imgSrc7}}" style="height:150px ; width:150px">
+                                <img ng-src="{{imgSrc7}}" height="900" width="300" />
+                            </li>
+                            <li data-thumb="{{imgSrc8}}" style="height:120px ; width:120px">
+                                <img ng-src="{{imgSrc8}}" height="900" width="300" />
+                            </li>
+                            <li data-thumb="{{imgSrc9}}" style="height:120px ; width:120px">
+                                <img ng-src="{{imgSrc9}}" height="900" width="300" />
+                            </li>
+                            <li data-thumb="{{imgSrc10}}" style="height:120px ; width:120px">
+                                <img ng-src="{{imgSrc10}}" height="900" width="300" />
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div ng-controller="fileUploadCtrl">
+                        <div>
+                            Product Pic 1:
+                            <input type="file" ng-model="$file1" ngf-select="uploadFilesProduct1(prod , $file1)" accept="image/*" ngf-max-height="1000" ngf-max-size="100MB" />
+                        </div>
+                        <div>
+                            Product Pic 2:
+                            <input type="file" ng-model="$file2" ngf-select="uploadFilesProduct2(prod , $file2)" accept="image/*" ngf-max-height="1000" ngf-max-size="100MB" />
+                        </div>
+                        <div>
+                            Product Pic 3:
+                            <input type="file" ng-model="$file3" ngf-select="uploadFilesProduct3(prod , $file3)" accept="image/*" ngf-max-height="1000" ngf-max-size="100MB" />
+                        </div>
+                        <div>
+                            Product Pic 4:
+                            <input type="file" ng-model="$file4" ngf-select="uploadFilesProduct4(prod , $file4)" accept="image/*" ngf-max-height="1000" ngf-max-size="100MB" />
+                        </div>
+                        <!--<div>
+                            <a ng-click="uploadFilesProduct(prod ,$file2, $file3, $file4, $file5)" accept="image/*" ngf-max-height="1000" ngf-max-size="100MB" class="add-re pull-right" style="margin-right:60px">Change</a>
+                        </div>-->
+                    </div>
+
+                    <!-- FlexSlider -->
+                    <script defer src="../../new_store-web/web/js/jquery.flexslider.js"></script>
+                    <link rel="stylesheet" href="../../new_store-web/web/css/flexslider.css" type="text/css" media="screen" />
+
+                    <script>
+                        // Can also be used with $(document).ready()
+                        $(window).load(function () {
+                            $('.flexslider').flexslider({
+                                animation: "slide",
+                                controlNav: "thumbnails"
+                            });
+                        });
+                    </script>
+
+                </div>
+
+                <!--Baby Stroller-->
+                <div class="span4" ng-if="oneProduct.productName=='Baby Stroller'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h5>{{oneProduct.babyStroller.strollerTitle}}</h5>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.babyStroller.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.babyStroller.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.babyStroller.brand}}<br />
+                                <b>Color:</b> {{oneProduct.babyStroller.color}}<br />
+                                <b>Gender:</b> {{oneProduct.babyStroller.gender}}<br />
+                                <b>Condition:</b> {{oneProduct.babyStroller.strollerCondition}}<br />
+                                <b>Made in:</b> {{oneProduct.babyStroller.country}}<br />
+                                <b>MPN:</b> {{oneProduct.babyStroller.strollerMPN}}<br /> 
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Book-->
+                <div class="span4" ng-if="oneProduct.productName=='Books'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.book.bookTitle}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.book.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.book.detail}}
+                            </p>
+                            <p>
+                                <b>Subject:</b> {{oneProduct.book.bookSubject}}<br />
+                                <b>Language:</b> {{oneProduct.book.language}}<br />
+                                <b>Writer:</b> {{oneProduct.book.writerName}}<br />
+                                <b>For AgeLevel:</b> {{oneProduct.book.ageLevel}}<br />
+                                <b>Body Area:</b> {{oneProduct.book.bodyArea}}<br />
+                                <b>Year of Publication:</b> {{oneProduct.book.publicationYear}}<br />
+                                <b>Condition:</b> {{oneProduct.book.condition}}<br />
+                                <b>Country:</b> {{oneProduct.book.countryOfPublication}}<br />
+                                <b>MPN:</b> {{oneProduct.book.bookMPN}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Camera-->
+                <div class="span4" ng-if="oneProduct.productName=='Camera'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.camera.cameraTIlte}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.camera.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.camera.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.camera.brand}}<br />
+                                <b>Model:</b> {{oneProduct.camera.model}}<br />
+                                <b>Color:</b> {{oneProduct.camera.color}}<br />
+                                <b>Condition:</b> {{oneProduct.camera.condition}}<br />
+                                <b>Country:</b> {{oneProduct.camera.country}}<br />
+                                <b>MPN:</b> {{oneProduct.camera.cameraMPN}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Cloth-->
+                <div class="span4" ng-if="oneProduct.productName=='Clothes'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.cloth.clothTitle}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.cloth.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.cloth.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.cloth.brand}}<br />
+                                <b>Model:</b> {{oneProduct.cloth.gender}}<br />
+                                <b>Color:</b> {{oneProduct.cloth.color}}<br />
+                                <b>Style:</b> {{oneProduct.cloth.style}}<br />
+                                <b>Size:</b> {{oneProduct.cloth.size}}<br />
+                                <b>Condition:</b> {{oneProduct.cloth.condition}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Food-->
+                <div class="span4" ng-if="oneProduct.productName=='Food'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.food.title}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.food.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.food.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.food.brand}}<br />
+                                <b>Specifications:</b> {{oneProduct.food.foodSpecification}}<br />
+                                <b>Manufacture Date:</b> {{oneProduct.food.manufacturedDate}}<br />
+                                <b>Expiry Date:</b> {{oneProduct.food.expiredDate}}<br />
+                                <b>Country:</b> {{oneProduct.food.country}}<br />
+                                <b>MPN:</b> {{oneProduct.food.foodMPN}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Furniture-->
+                <div class="span4" ng-if="oneProduct.productName=='Furniture'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.furniture.title}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.furniture.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.furniture.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.furniture.brand}}<br />
+                                <b>Specifications:</b> {{oneProduct.furniture.material}}<br />
+                                <b>Manufacture Date:</b> {{oneProduct.furniture.style}}<br />
+                                <b>Expiry Date:</b> {{oneProduct.furniture.color}}<br />
+                                <b>Country:</b> {{oneProduct.furniture.country}}<br />
+                                <b>MPN:</b> {{oneProduct.furniture.furnitureMPN}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Home Decor-->
+                <div class="span4" ng-if="oneProduct.productName=='HomeDecor'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.HomeDecor.title}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.HomeDecor.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.HomeDecor.detail}}
+                            </p>
+                            <p>
+                                <b>Name:</b> {{oneProduct.HomeDecor.nameOfProduct}}<br />
+                                <b>Brand:</b> {{oneProduct.HomeDecor.brand}}<br />
+                                <b>Specifications:</b> {{oneProduct.HomeDecor.category}}<br />
+                                <b>Manufacture Date:</b> {{oneProduct.HomeDecor.style}}<br />
+                                <b>Expiry Date:</b> {{oneProduct.HomeDecor.type}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Jewellery-->
+                <div class="span4" ng-if="oneProduct.productName=='Jwelery'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.jwellery.title}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.jwellery.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.jwellery.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.jwellery.brand}}<br />
+                                <b>Metal:</b> {{oneProduct.jwellery.metal}}<br />
+                                <b>Material:</b> {{oneProduct.jwellery.material}}<br />
+                                <b>Body Area:</b> {{oneProduct.jwellery.bodyArea}}<br />
+                                <b>Color:</b> {{oneProduct.jwellery.color}}<br />
+                                <b>Condition:</b> {{oneProduct.jwellery.condition}}<br />
+                                <b>Country:</b> {{oneProduct.jwellery.country}}<br />
+                                <b>MPN:</b> {{oneProduct.jwellery.jweleryMPN}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Kitchen-->
+                <div class="span4" ng-if="oneProduct.productName=='Kitchen'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.kitchen.title}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.kitchen.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.kitchen.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.kitchen.brand}}<br />
+                                <b>Type Brand:</b> {{oneProduct.kitchen.typeBrand}}<br />
+                                <b>Category:</b> {{oneProduct.kitchen.category}}<br />
+                                <b>Type:</b> {{oneProduct.kitchen.type}}<br />
+                                <b>Feature:</b> {{oneProduct.kitchen.feature}}<br />
+                                <b>Material:</b> {{oneProduct.kitchen.material}}<br />
+                                <b>Deal:</b> {{oneProduct.kitchen.deal}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Makeup-->
+                <div class="span4" ng-if="oneProduct.productName=='Makeup'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.makeup.title}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.makeup.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b>{{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.makeup.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.makeup.brand}}<br />
+                                <b>Shade:</b> {{oneProduct.makeup.shade}}<br />
+                                <b>Formulation:</b> {{oneProduct.makeup.formulation}}<br />
+                                <b>Feature:</b> {{oneProduct.makeup.feature}}<br />
+                                <b>Country:</b> {{oneProduct.makeup.country}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--Mobile-->
+                <div class="span4" ng-if="oneProduct.productName=='Mobile'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.mobile.title}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.mobile.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.mobile.detail}}
+                            </p>
+                            <p>
+                                <b>Brand:</b> {{oneProduct.makeup.brand}}<br />
+                                <b>Dimensions:</b> {{oneProduct.mobile.dimensions}}<br />
+                                <b>Weight:</b> {{oneProduct.mobile.weight}}<br />
+                                <b>Battery:</b> {{oneProduct.mobile.battery}}<br />
+                                <b>Operating System:</b> {{oneProduct.mobile.OS}}<br />
+                                <b>Memory:</b> {{oneProduct.mobile.memory}}<br />
+                                <b>Processor:</b> {{oneProduct.mobile.processor}}<br />
+                                <b>Connectivity:</b> {{oneProduct.mobile.connectivity}}<br />
+                                <b>Display Size:</b> {{oneProduct.mobile.displaySize}}<br />
+                                <b>Display Color:</b>{{oneProduct.mobile.displayColor}}<br />
+                                <b>Operating Frequency:</b> {{oneProduct.mobile.operatingFrequency}}<br />
+                                <b>Browsers:</b> {{oneProduct.mobile.browser}}<br />
+                                <b>Colors:</b> {{oneProduct.mobile.colors}}<br />
+                                <b>Entertainment:</b> {{oneProduct.mobile.entertainment}}<br />
+                                <b>Camera:</b> {{oneProduct.mobile.camera}}<br />
+                                <b>Ring Tones:</b> {{oneProduct.mobile.ringTones}}<br />
+                                <b>Messaging:</b> {{oneProduct.mobile.messaging}}<br />
+                                <b>Other Features:</b> {{oneProduct.mobile.otherfeatures}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <!--MotorCycle-->
+                <div class="span4" ng-if="oneProduct.productName=='MotorCycle'">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>{{oneProduct.motorCycle.title}}</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="oneProduct.rating >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> {{oneProduct.totalReviews}} reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. {{oneProduct.motorCycle.price}}</h5>
+                            <p>
+                                <b>Store:</b> {{oneProduct.storeName}}<br />
+                                <b>Market:</b> {{oneProduct.marketname}}<br />
+                                <b>City:</b> {{oneProduct.cityname}}<br />
+                            </p>
+                            <p>
+                                {{oneProduct.motorCycle.detail}}
+                            </p>
+                            <p>
+                                <b>Year:</b> {{oneProduct.motorCycle.year}}<br />
+                                <b>Fuel:</b> {{oneProduct.motorCycle.fuel}}<br />
+                                <b>KM's Driven:</b> {{oneProduct.motorCycle.kMDrivenYet}}<br />
+                                <b>Country:</b> {{oneProduct.motorCycle.country}}<br />
+                            </p>
+                            <a href="" data-toggle="modal" data-target="#myModalshopIt" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br /> 
+    <div style="background-color: white; padding-top: 30px; padding-bottom:20px; margin-left: 55px; margin-right:55px">
+        <a class="add-re pull-right" style="margin-right:40px ; margin-bottom:30px" data-toggle="modal" data-target="#myModalProductRev">Write Review</a>
+        <br /> <br />
+    </div>
+
+    <div class="row" ng-repeat="z in oneProduct.productReview" style="background-color: white; padding-top: 40px; margin-left: 50px; margin-right:50px">
+        <div class="span1">
+            <img class="img-responsive" src={{z.userImage}} alt="">
+        </div>
+        <div class="span7" ng-controller="navbarCtrl">
+            <h6 ng-click="viewAnyUserP(z.userID)"><a href="">{{z.firstname}} {{z.lastName}}</a> - {{z.date}}</h6>
+            <ul>
+                <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                    <div ng-switch="z.rating >= Star" style="display:inline">
+                        <div ng-switch-when="true" style="display:inline">
+                            <i class="star icon-star" style="display:inline"> </i>
+                        </div>
+                        <div ng-switch-when="false" style="display:inline">
+                            <i class="star icon-star-empty" style="display:inline"> </i>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <p>{{z.review}}</p>
+            <br />
+        </div>
+        <div class="span3"> </div>
+        <div class="clearfix"> </div>
+        <!--<a class="add-re pull-right" style="margin-right:30px ; margin-bottom:30px" href="#">Write Review</a> <br /> <br />-->
+    </div>
+
+
+    <div class="modal hide fade" id="myModalProductRev" tabindex="-1" role="dialog" aria-labelledby="myModalProductRevLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Leave a Comment</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="">
+                        <form>
+                            Rating :
+                            <select id="rate">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select> <br /> <br />
+                            <textarea id="rev" cols="160"></textarea>
+                            <br />
+                            <div ng-if="logInUserId!=null">
+                                <!--<a ng-if="oneProduct.productName=='Baby Stroller'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.babyStroller.productID , oneProduct.babyStroller.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='Books'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.book.bookID , oneProduct.book.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='Camera'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.camera.cameraID , oneProduct.camera.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='Clothes'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.cloth.clothID , oneProduct.cloth.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='Food'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.food.foodID , oneProduct.food.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='Furniture'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.furniture.furnitureID , oneProduct.furniture.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='HomeDecor'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.HomeDecor.homeDecorID , oneProduct.HomeDecor.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='Jwelery'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.jwellery.jweleryID , oneProduct.jwellery.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='Kitchen'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.kitchen.kitchenID , oneProduct.kitchen.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='Mobile'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.mobile.mobileID , oneProduct.mobile.storeID )">Send</a>
+                                <a ng-if="oneProduct.productName=='makeup'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.makeup.makeupID , oneProduct.makeup.storeID)">Send</a>
+                                <a ng-if="oneProduct.productName=='MotorCycle'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , oneProduct.motorCycle.motorCycleID , oneProduct.motorCycle.storeID)">Send</a>
+                                <a ng-if="oneProduct.productName=='MotorCycle'" class="btn green pull-right" ng-click="writeProductReview(logInUserId , prod , prodS)">Send</a>-->
+                            </div>
+                            <a ng-if="logInUserId!=null" class="btn green pull-right" ng-click="writeProductReview(logInUserId , prod , prodS)">Send</a>
+                            <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right">SignIn or SignUp to give your review</a>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal hide fade" id="myModalshopIt" tabindex="-1" role="dialog" aria-labelledby="myModalshopItLabel" aria-hidden="true">
+        <div class="modal-form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Provide Your Info</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div>
+
+                        <form class="form-vertical login-form">
+                            <div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9">Name</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-male"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="name" type="text" autocomplete="off" placeholder="Name on which you want to place you order" name="sN" />
+                                    </div>
+                                </div>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-home"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="adres" type="text" autocomplete="off" placeholder="Enter your address Here" name="sN" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label visible-ie8 visible-ie9">Contact No.</label>
+                                <div class="controls">
+                                    <div class="input-icon left">
+                                        <i class="icon-phone"></i>
+                                        <input class="m-wrap placeholder-no-fix" id="contact" type="text" autocomplete="off" placeholder="Enter your contact no. Here" name="mN" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <a ng-if="logInUserId!=null" href="" class="btn green pull-right" ng-click="addToCart()">
+                                    Add To Cart <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                                <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right">SignIn or SignUp to Order Products</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>

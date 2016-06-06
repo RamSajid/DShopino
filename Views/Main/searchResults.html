@@ -1,0 +1,181 @@
+﻿
+<div ng-controller="searchResultsCtrl">
+    <div class="content">
+        <div class="container">
+            <div class="content-top" style="background-color:white ; margin-top:60px">
+                <h1>Search Results</h1>
+                <div>
+                    <a href="#" ng-click="y1=1" class="add-cart item_add">Markets</a>
+                    <a href="#" ng-click="y1=2" class="add-cart item_add">Stores</a>
+                    <a href="#" ng-click="y1=3" class="add-cart item_add">Categories</a>
+                    <a href="#" ng-click="y1=4" class="add-cart item_add">Products</a>
+                    
+                    <div ng-controller="specificCityCtrl" ng-if="y1==1" class="row grid-in"  style="margin-left:50px">
+                        <div ng-repeat="x in sR.marketList" class="span2 grid-top">
+                            <a class="b-link-stripe b-animate-go thickbox">
+                                <img ng-src={{x.marketPic}} class="img-responsive" alt="" />
+                                <div class="b-wrapper" ng-click="toSpecificMarket(x.marketID , x.marketName)">
+                                    <h6 class="b-animate b-from-left   b-delay03 ">
+                                        <br /> <br /> <br />
+                                        Rating : {{x.marketRate}}<br />
+                                        Reviews : {{x.totalReviews}}<br />
+                                    </h6>
+                                </div>
+                            </a>
+                            <p>
+                                <a ng-click="toSpecificMarket(x.marketID , x.marketName)" style="font-size:large"><b>{{x.marketName}}</b></a> 
+                            </p>
+                            <p style="font-size:small">
+                                {{x.city}}
+                            </p> <br /> <br />
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div ng-controller="specificMarketCtrl" ng-if="y1==2" class="row grid-in" style="margin-left:50px">
+                        <div ng-repeat="x in sR.storesList" class="span2 grid-top">
+                            <a class="b-link-stripe b-animate-go thickbox">
+                                <img ng-src={{x.storePic}} class="img-responsive" alt="">
+                                <div class="b-wrapper" ng-click="toSpecificStore(x.storeID , x.storeName)">
+                                    <h6 class="b-animate b-from-left   b-delay03 ">
+                                        <br /> <br /> <br />
+                                        Rating : {{x.storeRating}}<br />
+                                        Reviews : {{x.totalReviews}}<br />
+                                    </h6>
+                                </div>
+                            </a>
+                            <p>
+                                <a ng-click="toSpecificStore(x.storeID , x.storeName)" style="font-size:large"><b>{{x.storeName}}</b></a> 
+                            </p>
+                            <p style="font-size:small">
+                                {{x.marketName}}, {{x.city}}
+                            </p>
+                            <table>
+                                <tr>
+                                    <td ng-click="writeStoreReviewClickSR(x.storeID , x.marketID)"> <a>write a review</a> </td>
+                                </tr>
+                            </table>
+                            <!--<a data-toggle="modal" data-target="#myModalS">write a review</a> <br /> <br />-->
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div ng-controller="navbarCtrl" ng-if="y1==3" class="row grid-in" style="margin-left:50px">
+                        <div ng-repeat="x in sR.subCategoryList" class="span2 grid-top">
+                            <p>
+                                <a ng-click="toSpecificSubCat(x.subCatID, x.subCatName)" style="font-size:large"><b>{{x.subCatName}}</b></a>
+                            </p>
+                            <p style="font-size:small">
+                                {{x.catName}}<br />
+                            </p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div ng-controller="specificStoreCtrl" ng-if="y1==4" class="row grid-in" style="margin-left:50px">
+                        <div ng-repeat="x in sR.productList" class="span2 grid-top">
+                            <a class="b-link-stripe b-animate-go thickbox">
+                                <img ng-src={{x.prodPic}} class="img-responsive" alt="">
+                                <div class="b-wrapper" ng-click="toSpecificProduct(x.prodID , x.prodName)">
+                                    <h6 class="b-animate b-from-left   b-delay03 ">
+                                        <br /> <br /> <br />
+                                        Rating : {{x.prodRating}}<br />
+                                        Reviews : {{x.totalReviews}}<br />
+                                    </h6>
+                                </div>
+                            </a>
+                            <p>
+                                <a ng-click="toSpecificProduct(x.prodID , x.prodName)" style="font-size:large"><b>{{x.prodName}}</b></a> 
+                            </p>
+                            <p style="font-size:small">
+                                {{x.categoryName}} - {{x.subCatName}}
+                            </p>
+                            <table>
+                                <tr>
+                                    <td ng-click="writeProductReviewClickSR(x.prodID , x.storeID)"> <a>write a review</a> </td>
+                                </tr>
+                            </table>
+                            <!--<a data-toggle="modal" data-target="#myModalP">write a review</a> <br /> <br />-->
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id="myModalStoreRev" tabindex="-1" role="dialog" aria-labelledby="myModalStoreRevLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Leave a Comment</h4>
+                </div>
+                <div class="modal-body" ng-controller="specificStoreCtrl">
+
+                    <div class="">
+                        <form>
+                            Rating :
+                            <select id="rateS">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select> <br /> <br />
+                            <textarea id="revS" cols="160"></textarea>
+                            <br />
+                            <a ng-if="logInUserId!=null" class="btn green pull-right" ng-click="writeStoreReview(logInUserId , clickedStoreIdSR , clickedMarketIdSR)">Send</a>
+                            <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right">SignIn or SignUp to give your review</a>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal hide fade" id="myModalProductRev" tabindex="-1" role="dialog" aria-labelledby="myModalProductRevLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Leave a Comment</h4>
+                </div>
+                <div class="modal-body" ng-controller="specificProductCtrl">
+
+                    <div class="">
+                        <form>
+                            Rating :
+                            <select id="rate">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select> <br /> <br />
+                            <textarea id="rev" cols="160"></textarea>                            <br />
+                            <a ng-if="logInUserId!=null" class="btn green pull-right" ng-click="writeProductReview(logInUserId , clickedProductIdSR , clickedStorePIdSR)">Send</a>
+                            <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right">SignIn or SignUp to give your review</a>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

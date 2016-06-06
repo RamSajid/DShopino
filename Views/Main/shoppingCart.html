@@ -1,0 +1,33 @@
+﻿
+<div ng-controller="shoppingCartCtrl">
+<div class="content">
+    <div class="container" style="background-color: white; margin-top: 60px; padding-left: 30px">
+        <div class="content-top-bottom" style="margin-top:60px">
+            <h2>Shopping Cart</h2>
+            <div style="margin-left:50px" class="row" ng-repeat="x in cartData.customerShopCart">
+                <h4> <b>Order ID: {{x.orderID}} </b></h4>
+                <br />
+                <div class="span4" style="margin-left:50px" ng-controller="navbarCtrl">
+                    <h5> Customer Details </h5>
+                    <b>Name - </b><h6 ng-click="viewAnyUserP(x.userID)"><a href="">{{x.name}} </a></h6> <br />
+                    <b>Address - </b>{{x.address}}<br />
+                    <b>Contact # - </b>{{x.contact}}  <br />
+                </div>
+                <div class="span4" ng-controller="specificStoreCtrl">
+                    <h5> Order Details </h5>
+                    <b>Product Name - </b><h6 ng-click="toSpecificProduct(x.productID , x.productName)"><a href="">{{x.productName}} </a></h6> <br />
+                    <b>Price - </b>{{x.price}}<br />
+                    <b>Order Date - </b>{{x.orderDate}}  <br />
+                </div>
+                <div class="span2">
+                    <a href="" class="add-cart item_add" ng-if="x.status=='pending'" ng-click="cancelOrderCustomer(x.orderID)">Cancel Order</a>
+                    <br />
+                    <h4><b>{{x.status}}</b></h4><br />
+                    <br /> <i ng-if="x.status=='order canceled by customer' || x.status=='order canceled by merchant'" class="icon-cut"> </i>
+                </div>
+                <div class="clearfix"> </div> <br /> <br />
+            </div>
+        </div>
+    </div>
+</div>
+</div>

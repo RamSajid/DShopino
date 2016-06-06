@@ -1,0 +1,138 @@
+﻿
+
+
+<div class="header" ng-controller="navbarCtrl">
+    <div class="header-top">
+        <div class="container">
+            <div class="search">
+                <!--<form class="search">-->
+                    <input type="text" placeholder="Search " id="searchBox"/>
+                    <input type="submit" value="Go" ng-click="searchBar()" />
+                <!--</form>-->
+            </div>
+            <div class="header-left">
+                <!--<ul>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>-->
+                
+                <span ng-if="logInUserId==null" class=" pull-right" style="margin-right:15px ; color:antiquewhite"> <a style="color:antiquewhite" ui-sref="account.userLogin">Login</a> </span>
+                <span ng-if="logInUserId==null" class=" pull-right" style="margin-right:15px ; color:antiquewhite"> <a style="color:antiquewhite" ui-sref="account.userSignUp">Register</a> </span>
+                <span ng-if="logInUserId!=null" class=" pull-right" style="margin-right:15px ; color:antiquewhite"> <img style="color:antiquewhite" ng-src="{{imgSrc4ui}}" height="50" width="50" /> </span>
+                <span ng-if="logInUserId!=null" ng-click="viewMyProfile()" class=" pull-right" style="margin-right:15px ; color:antiquewhite">{{logInUserFName}} </span>
+                <span ng-if="logInUserId!=null" class=" pull-right" style="margin-right:15px ; color:antiquewhite"> <a style="color:antiquewhite" ng-click="userLogout(logInUserId)" href="">Logout</a> </span>
+
+
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="head-top">
+            <div class="logo">
+                <a href="" ui-sref="account.Home"><img src="../../new_store-web/web/images/logo.png" alt=""></a>
+            </div>
+            <div class=" h_menu4">
+                <ul class="memenu skyblue">
+                    <li class="grid"><a class="color8" ui-sref="account.Home">Home</a></li>
+                    <li >
+                        <a class="color1" >Categories</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1" ng-repeat="x in catSubCat.catList">
+                                    <div class="h_nav">
+                                        <h4 ng-click="toSpecificCat(x.catID, x.catName)"><a>{{x.catName}}</a></h4>
+                                        <ul ng-repeat="y in x.subCatList">
+                                            <li>
+                                                <h6 ng-click="toSpecificSubCat(y.subCatID, y.subCatName)" style="color:black"><a tabindex="-1">{{y.subCatName}}</a></h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid">
+                        <a class="color2">	Cities</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1" ng-repeat="x in cityMarkets.cityMdl">
+                                    <div class="h_nav">
+                                        <h6 ng-click="toSpecificCity(x.cityID , x.cityName)"><a>{{x.cityName}}</a></h6>
+                                        <!--<ul ng-repeat="y in x.mrktModel">
+                                            <li>
+                                                <a>{{y.marketName}}</a>
+                                            </li>
+                                        </ul>-->
+                                        <!--<h4 ng-click="toSpecificCity(x.cityID , x.cityName)"><a>{{x.cityName}}</a></h4>-->
+                                        <!--<ul ng-click="toSpecificCity(x.cityID , x.cityName)">
+                                            <li>
+                                                <a>{{x.cityName}}</a>
+                                            </li>
+                                        </ul>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a class="color4" ui-sref="account.StoreTag" >Store Tags</a></li>
+                    <li><a class="color6" ui-sref="account.contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="content">
+    <ui-view></ui-view>
+</div>
+
+
+
+<div class="content">
+    <div class="container">
+        <div class="content-top">
+            <br />
+            <br />
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <!--<div class="container">-->
+        <div class="footer-top-at">
+
+            <div class="row">
+                <div class="span4"> <h5 style="color:antiquewhite">FAQ </h5></div>
+                <!--<div class="span1"><small>Questions: </small>sm1</div>
+                <div class="span1"><small>Marks: </small>sm2</div>
+                <div class="span3"><small>Issue Date: </small>sm3</div>
+                <div class="span3"><small>Due Date: </small>sm4</div>-->
+                <div class="span4"> <h5 style="color:antiquewhite"> Membership </h5> </div>
+                <div class="span2"> <h5 style="color:antiquewhite"> Contact </h5> </div>
+            </div>
+
+
+            <!--<span class="pull-left" style="margin-left: 25px; margin-right: 55px; color:antiquewhite"> FAQ </span>
+            <span class="pull-left" style="margin-left: 5px; margin-right: 55px; color:antiquewhite"> Membership </span>
+            <span class="pull-left" style="margin-left: 5px; margin-right: 5px; color:antiquewhite"> Contact </span>-->
+            <!--<div class="row col-md-4 amet-sed">
+                <ul class="nav-bottom">
+                        <li><a href="contact.html">FAQ</a></li>
+                        <li><a href="#">Membership</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>-->
+            <div class="clearfix"> </div>
+        </div>
+    <!--</div>-->
+    <div class="footer-class">
+        <p>© 2015 New store . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+    </div>
+</div>

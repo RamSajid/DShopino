@@ -1,0 +1,185 @@
+﻿<div>
+    <div class="container" style="background-color:white; margin-top:60px; padding-top:50px; padding-left:30px;padding-right:40px">
+        <div class="product">
+            <div class="row">
+                <div class="span3">
+                    <div class=" rsidebar span_1_of_left">
+                        <div class="of-left">
+                            <h3 class="cate">Categories</h3>
+                        </div>
+                        <ul class="menu">
+
+                            <!--<li class="item1" ng-repeat="x in catSubCat.catList">
+                                <a ng-click="toSpecificCat(x.catID, x.catName)">{{x.catName}} </a>
+                                <ul class="cute">
+                                    <li class="subitem1">
+                                        <table style="margin:5%">
+                                            <tr ng-repeat="y in x.subCatList">
+                                                <td class="span4" ng-click="toSpecificSubCat(y.subCatID, y.subCatName)"><a> {{y.subCatName}}</a></td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </li>-->
+
+                            <li class="item2">
+                                <a href="#">Women </a>
+                                <ul class="cute">
+                                    <li class="subitem1"><a href="#">Cute Kittens </a></li>
+                                    <li class="subitem2"><a href="#">Strange Stuff </a></li>
+                                    <li class="subitem3"><a href="#">Automatic Fails </a></li>
+                                </ul>
+                            </li>
+                            <li class="item3">
+                                <a href="#">Kids</a>
+                                <ul class="cute">
+                                    <li class="subitem1"><a href="#">Cute Kittens </a></li>
+                                    <li class="subitem2"><a href="#">Strange Stuff </a></li>
+                                    <li class="subitem3"><a href="#">Automatic Fails</a></li>
+                                </ul>
+                            </li>
+                            <li class="item4">
+                                <a href="#">Accesories</a>
+                                <ul class="cute">
+                                    <li class="subitem1"><a href="#">Cute Kittens </a></li>
+                                    <li class="subitem2"><a href="#">Strange Stuff </a></li>
+                                    <li class="subitem3"><a href="#">Automatic Fails</a></li>
+                                </ul>
+                            </li>
+                            <li class="item4">
+                                <a href="#">Shoes</a>
+                                <ul class="cute">
+                                    <li class="subitem1"><a href="#">Cute Kittens </a></li>
+                                    <li class="subitem2"><a href="#">Strange Stuff </a></li>
+                                    <li class="subitem3"><a href="product.html">Automatic Fails </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $(function () {
+                        var menu_ul = $('.menu > li > ul'),
+                               menu_a = $('.menu > li > a');
+                        menu_ul.hide();
+                        menu_a.click(function (e) {
+                            e.preventDefault();
+                            if (!$(this).hasClass('active')) {
+                                menu_a.removeClass('active');
+                                menu_ul.filter(':visible').slideUp('normal');
+                                $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                            } else {
+                                $(this).removeClass('active');
+                                $(this).next().stop(true, true).slideUp('normal');
+                            }
+                        });
+
+                    });
+                </script>
+
+                <div class="span4">
+
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li data-thumb="../../new_store-web/web/images/si.jpg">
+                                <img src="../../new_store-web/web/images/si.jpg" />
+                            </li>
+                            <li data-thumb="../../new_store-web/web/images/si1.jpg">
+                                <img src="../../new_store-web/web/images/si1.jpg" />
+                            </li>
+                            <li data-thumb="../../new_store-web/web/images/si2.jpg">
+                                <img src="../../new_store-web/web/images/si2.jpg" />
+                            </li>
+                            <li data-thumb="../../new_store-web/web/images/si.jpg">
+                                <img src="../../new_store-web/web/images/si.jpg" />
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- FlexSlider -->
+                    <script defer src="../../new_store-web/web/js/jquery.flexslider.js"></script>
+                    <link rel="stylesheet" href="../../new_store-web/web/css/flexslider.css" type="text/css" media="screen" />
+
+                    <script>
+                        // Can also be used with $(document).ready()
+                        $(window).load(function () {
+                            $('.flexslider').flexslider({
+                                animation: "slide",
+                                controlNav: "thumbnails"
+                            });
+                        });
+                    </script>
+
+                </div>
+
+                <!--Baby Stroller-->
+                <div class="span4">
+                    <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                        <div class="single-para ">
+                            <h4>TITLE</h4>
+                            <div class="">
+                                <ul>
+                                    <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                                        <div ng-switch="2 >= Star" style="display:inline">
+                                            <div ng-switch-when="true" style="display:inline">
+                                                <i class="star icon-star" style="display:inline"> </i>
+                                            </div>
+                                            <div ng-switch-when="false" style="display:inline">
+                                                <i class="star icon-star-empty" style="display:inline"> </i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="review">
+                                    <a href="#"> 15 reviews </a>
+
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                            <h5 class="item_price">Rs. 100000</h5>
+                            <p>
+                                DETAILL
+                            </p>
+                            
+                            <a href="#" class="add-cart item_add">ADD TO CART</a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <br /> <br />
+
+    <div class="row" ng-repeat="z in oneProduct.productReview" style="background-color: white; padding-top: 40px; margin-left: 50px; margin-right:50px">
+        <div class="span1">
+            <img class="img-responsive" src={{z.userImage}} alt="">
+        </div>
+        <div class="span7">
+            <h6> <a href="#">{{z.firstname}} {{z.lastName}}</a> - {{z.date}}</h6>
+            <ul>
+                <li ng-repeat="Star in [1,2,3,4,5]" style="list-style:none ; display:inline">
+                    <div ng-switch="z.rating >= Star" style="display:inline">
+                        <div ng-switch-when="true" style="display:inline">
+                            <i class="star icon-star" style="display:inline"> </i>
+                        </div>
+                        <div ng-switch-when="false" style="display:inline">
+                            <i class="star icon-star-empty" style="display:inline"> </i>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <p>{{z.review}}</p>
+            <br />
+        </div>
+        <div class="span3"> </div>
+        <div class="clearfix"> </div>
+        <a class="add-re pull-right" style="margin-right:30px ; margin-bottom:30px" href="#">Write Review</a> <br /> <br />
+    </div>
+</div>

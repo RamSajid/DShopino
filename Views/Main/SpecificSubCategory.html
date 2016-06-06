@@ -1,0 +1,77 @@
+﻿
+
+<div ng-controller="specificSubCategoryCtrl">
+
+    <div class="content" ng-controller="specificMarketCtrl">
+        <div class="container" style="background-color: white ; margin-top:60px ; padding-top:60px">
+            <h2 style="margin-left:30px">{{subCatN}}</h2>
+            <div class="content-top-bottom" ng-repeat="x in oneSubCat.storesList" style="margin-top:30px">
+                <div class="span2 men" style="margin-left:50px">
+                    <a class="b-link-stripe b-animate-go  thickbox">
+                        <img ng-src={{x.storePic}} class="img-responsive" alt="">
+                        <div class="b-wrapper" ng-click="toSpecificStore(x.storeID , x.storeName)">
+                            <h6 class=" b-animate b-from-top top-in b-delay03 ">
+                                <br /> <br /> <br />
+                                Rating : {{x.storeRating}} <br />
+                                Reviews : {{x.totalReviews}}
+                            </h6>
+                        </div>
+                    </a>
+                </div>
+                <div class="span5">
+                    <br /> <br />
+                    <a ng-click="toSpecificStore(x.storeID , x.storeName)" style="font-size:large"><b>{{x.storeName}}</b></a> <br />
+                    {{x.marketName}} , {{x.city}} <br />
+                    <!--<a class="map" href="#"><i class="map"> </i> Map </a> <br />-->
+
+                    <table>
+                        <tr>
+                            <td ng-click="writeStoreReviewClickSSC(x.storeID , x.marketID)"> <a>write a review</a> </td>
+                        </tr>
+                    </table>
+
+                    <!--<a data-toggle="modal" data-target="#myModal">write a review</a>-->
+                </div>
+                <div class="clearfix"> </div> <br />
+            </div>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Leave a Comment</h4>
+                </div>
+                <div class="modal-body" ng-controller="specificStoreCtrl">
+
+                    <div class="">
+                        <form>
+                            Rating :
+                            <select id="ratingDd">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <br /> <br />
+                            <textarea cols="160" onfocus="this.value='';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
+                            <br />
+                            <a ng-if="logInUserId!=null" class="btn green pull-right" ng-click="writeStoreReview(logInUserId , clickedStoreIdSSC , clickedMarketIdSSC)">Send</a>
+                            <a ng-if="logInUserId==null" ui-sref="account.userLogin" class="btn green pull-right">SignIn or SignUp to give your review</a>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+</div>
